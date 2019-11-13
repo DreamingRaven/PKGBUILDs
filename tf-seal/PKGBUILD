@@ -6,15 +6,15 @@
 # Maintainer: George Raven <GeorgeRavenCommunity AT pm dot me>
 pkgname=tf-seal-git
 _pkgsrcname="tf-seal"
-pkgver=2.0.3.r35.d05318c
+pkgver=0.1.0
 pkgrel=1
 pkgdesc="Bridge between TensorFlow and the Microsoft SEAL homomorphic encryption library."
 arch=('x86_64' 'aarch64')
-url="https://github.com/tf-encrypted/tf-seal"
+url="https://github.com/DreamingRaven/tf-seal"
 _branch="tf2"
-license=('APL') # MIT is a special case store a copy in /usr/share/pkgname
+license=('APLV2') # MIT is a special case store a copy in /usr/share/pkgname
 groups=()
-depends=('python')
+depends=('python' 'python-numpy' 'python-tensorflow-cuda')
 makedepends=('git')
 optdepends=()
 provides=()
@@ -27,10 +27,10 @@ source=("${_pkgsrcname}::git+${url}#branch=${_branch}")
 noextract=()
 md5sums=('SKIP')
 
-pkgver() {
-	cd "${srcdir}/${_pkgsrcname}"
-	printf "%s" "$(git describe --long | sed 's/\([^-]*-\)g/r\1/;s/-/./g')"
-}
+# pkgver() {
+# 	cd "${srcdir}/${_pkgsrcname}"
+# 	printf "%s" "$(git describe --long | sed 's/\([^-]*-\)g/r\1/;s/-/./g')"
+# }
 
 prepare() {
 	cd "${srcdir}/${_pkgsrcname}"
@@ -44,13 +44,10 @@ build() {
 check() {
 	cd "${srcdir}/${_pkgsrcname}"
 	# check that program can run while self checking and updating if somethings missing
-	python3 ./nemesyst.py --update
 }
 
 package() {
 	cd "${srcdir}/${_pkgsrcname}"
 	python3 ./setup.py install --prefix=/usr --root="$pkgdir/" --optimize=1
 	install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-	install -Dm644 docs/build/man/nemesyst.1 "$pkgdir/usr/share/man/man1/nemesyst.1"
-	install -Dm644 nemesyst.d/nemesyst.conf "${pkgdir}/etc/nemesyst/nemesyst.d/nemesyst.conf"
 }

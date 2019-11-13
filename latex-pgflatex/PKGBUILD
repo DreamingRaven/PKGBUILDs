@@ -1,13 +1,13 @@
 # Maintainer: George Raven <GeorgeRavenCommunity AT pm dot me>
 pkgname=latex-pgflatex-git
 _pkgsrcname="latex-pgflatex"
-pkgver=2.0.3.r35.d05318c
+pkgver=v5.0.r0.89c489e
 pkgrel=1
 pkgdesc="latex gantt chart generation."
 arch=('x86_64')
 url="https://github.com/skafdasschaf/latex-pgfgantt"
 _branch="master"
-license=('MIT') # MIT is a special case store a copy in /usr/share/pkgname
+license=('LPPL-1.3c') # https://spdx.org/licenses/LPPL-1.3c.html#licenseText
 groups=()
 depends=()
 makedepends=("git")

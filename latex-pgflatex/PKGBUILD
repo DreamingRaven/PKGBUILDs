@@ -1,5 +1,5 @@
 # Maintainer: George Raven <GeorgeRavenCommunity AT pm dot me>
-pkgname=latex-pgflatex-git
+pkgname=texlive-pgflatex-git
 _pkgsrcname="latex-pgflatex"
 pkgver=v5.0.r0.89c489e
 pkgrel=1
@@ -9,7 +9,7 @@ url="https://github.com/skafdasschaf/latex-pgfgantt"
 _branch="master"
 license=('LPPL-1.3c') # https://spdx.org/licenses/LPPL-1.3c.html#licenseText
 groups=()
-depends=()
+depends=('texlive-core' 'texlive-latexextra')
 makedepends=("git")
 optdepends=()
 provides=()

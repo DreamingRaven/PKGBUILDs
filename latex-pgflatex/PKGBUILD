@@ -1,0 +1,47 @@
+# Maintainer: George Raven <GeorgeRavenCommunity AT pm dot me>
+pkgname=latex-pgflatex-git
+_pkgsrcname="latex-pgflatex"
+pkgver=2.0.3.r35.d05318c
+pkgrel=1
+pkgdesc="latex gantt chart generation."
+arch=('x86_64')
+url="https://github.com/skafdasschaf/latex-pgfgantt"
+_branch="master"
+license=('MIT') # MIT is a special case store a copy in /usr/share/pkgname
+groups=()
+depends=()
+makedepends=("git")
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+source=("${_pkgsrcname}::git+${url}#branch=${_branch}")
+noextract=()
+md5sums=('SKIP')
+
+pkgver() {
+	cd "${srcdir}/${_pkgsrcname}"
+	printf "%s" "$(git describe --long | sed 's/\([^-]*-\)g/r\1/;s/-/./g')"
+}
+
+prepare() {
+	cd "${srcdir}/${_pkgsrcname}"
+	git checkout ${_branch} # get off of makepkg branch
+}
+
+build() {
+	cd "${srcdir}/${_pkgsrcname}"
+	latex pgfgantt.ins # generate the .sty file
+}
+
+check() {
+	cd "${srcdir}/${_pkgsrcname}"
+}
+
+package() {
+	cd "${srcdir}/${_pkgsrcname}"
+  install -Dm644 pgfgantt.sty $pkgdir/usr/share/texmf/tex/latex/pgfgantt/pgfgantt.sty
+}

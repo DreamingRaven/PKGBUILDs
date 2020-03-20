@@ -1,11 +1,11 @@
 # @Author: GeorgeRaven <archer>
 # @Date:   2020-03-20T12:51:57+00:00
 # @Last modified by:   archer
-# @Last modified time: 2020-03-20T15:53:27+00:00
+# @Last modified time: 2020-03-20T16:13:35+00:00
 # @License: please see LICENSE file in project root
 
 # Maintainer: George Raven <GeorgeRavenCommunity AT pm dot me>
-pkgname=python-seal
+pkgname=python-seal-git
 _pkgsrcname="python-seal"
 pkgver=r89.5a034ec
 pkgrel=1
@@ -15,7 +15,7 @@ url="https://github.com/Huelse/SEAL-Python"
 _branch="master"
 license=('MIT') # MIT is a special case store a copy in /usr/share/pkgname
 groups=()
-depends=("cmake" "clang" "python" "python-pytest" "pybind11" "python-numpy")
+depends=("cmake" "clang" "python" "python-pytest" "pybind11" "python-numpy" "ms-seal-git")
 makedepends=("git")
 optdepends=()
 provides=()

@@ -1,11 +1,11 @@
 # @Author: GeorgeRaven <archer>
 # @Date:   2020-03-20T12:51:57+00:00
 # @Last modified by:   archer
-# @Last modified time: 2020-03-20T15:49:53+00:00
+# @Last modified time: 2020-03-20T16:01:41+00:00
 # @License: please see LICENSE file in project root
 
 # Maintainer: George Raven <GeorgeRavenCommunity AT pm dot me>
-pkgname=ms-seal
+pkgname=ms-seal-git
 _pkgsrcname="ms-seal"
 pkgver=r89.5a034ec
 pkgrel=1

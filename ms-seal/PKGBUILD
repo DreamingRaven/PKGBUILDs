@@ -1,15 +1,15 @@
 # @Author: GeorgeRaven <archer>
 # @Date:   2020-03-20T12:51:57+00:00
 # @Last modified by:   archer
-# @Last modified time: 2020-03-20T15:53:27+00:00
+# @Last modified time: 2020-03-20T15:49:53+00:00
 # @License: please see LICENSE file in project root
 
 # Maintainer: George Raven <GeorgeRavenCommunity AT pm dot me>
-pkgname=python-seal
-_pkgsrcname="python-seal"
+pkgname=ms-seal
+_pkgsrcname="ms-seal"
 pkgver=r89.5a034ec
 pkgrel=1
-pkgdesc="Python wrapper for Microsoft-SEAL using pybind11."
+pkgdesc="Microsoft SEAL fully homomorphic encryption library."
 arch=('x86_64')
 url="https://github.com/Huelse/SEAL-Python"
 _branch="master"
@@ -41,9 +41,10 @@ prepare() {
 }
 
 build() {
-	# build seal wrapper
-	cd "${srcdir}/${_pkgsrcname}/src"
-	python3 ./setup.py build_ext -i
+	# build seal (likeley version 3.3.2)
+	cd "${srcdir}/${_pkgsrcname}/SEAL/native/src"
+	cmake .
+	make
 }
 
 check() {
@@ -51,7 +52,6 @@ check() {
 }
 
 package() {
-	cd "${srcdir}/${_pkgsrcname}/src"
-	python3 ./setup.py install --prefix=/usr --root="$pkgdir/" --optimize=1
-	# install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+	cd "${srcdir}/${_pkgsrcname}/SEAL/native/src"
+	make DESTDIR="$pkgdir/" install
 }

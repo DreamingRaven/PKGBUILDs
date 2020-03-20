@@ -1,0 +1,63 @@
+# @Author: GeorgeRaven <archer>
+# @Date:   2020-03-20T12:51:57+00:00
+# @Last modified by:   archer
+# @Last modified time: 2020-03-20T13:14:38+00:00
+# @License: please see LICENSE file in project root
+
+# Maintainer: George Raven <GeorgeRavenCommunity AT pm dot me>
+pkgname=python-seal
+_pkgsrcname="python-seal"
+pkgver=r25.49fb1f6
+pkgrel=1
+pkgdesc="Python wrapper for Microsoft-SEAL using pybind11."
+arch=('x86_64')
+url="https://github.com/Huelse/SEAL-Python"
+_branch="master"
+license=('MIT') # MIT is a special case store a copy in /usr/share/pkgname
+groups=()
+depends=("cmake" "clang" "python" "python-pytest" "python-pybind11"
+				 "python-numpy")
+makedepends=("git")
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+source=("${_pkgsrcname}::git+${url}#branch=${_branch}")
+noextract=()
+md5sums=('SKIP')
+
+pkgver() {
+	cd "${srcdir}/${_pkgsrcname}"
+	# there are no tags of any kind so having to use revisions
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+	# printf "%s" "$(git describe --long | sed 's/\([^-]*-\)g/r\1/;s/-/./g')"
+}
+
+prepare() {
+	cd "${srcdir}/${_pkgsrcname}"
+	git checkout ${_branch} # get off of makepkg branch
+}
+
+build() {
+	# build seal (likeley version 3.3.2)
+	cd "${srcdir}/${_pkgsrcname}/SEAL/native/src"
+	cmake .
+	make
+	make install
+	# build seal wrapper
+	cd "${srcdir}/${_pkgsrcname}/src"
+	python3 ./setup.py build_ext -i
+}
+
+check() {
+	cd "${srcdir}/${_pkgsrcname}"
+}
+
+package() {
+	cd "${srcdir}/${_pkgsrcname}/src"
+	python3 ./setup.py install --prefix=/usr --root="$pkgdir/" --optimize=1
+	install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
